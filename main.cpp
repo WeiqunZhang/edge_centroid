@@ -23,13 +23,14 @@ int main (int argc, char* argv[])
 
         Geometry geom;
         {
-            RealBox rb({-1.0,-1.0,-1.0}, {1.0,1.0,1.0}); // physical domain
-            Array<int,AMREX_SPACEDIM> is_periodic{false, false, false};
+            RealBox rb({AMREX_D_DECL(-1.0,-1.0,-1.0)},
+                       {AMREX_D_DECL( 1.0, 1.0, 1.0)}); // physical domain
+            Array<int,AMREX_SPACEDIM> is_periodic{AMREX_D_DECL(false, false, false)};
             Box domain(IntVect(0), IntVect(n_cell-1));
             geom.define(domain, rb, CoordSys::cartesian, is_periodic);
         }
 
-        EB2::SphereIF sphere(0.5, {0.0,0.0,0.0}, false);
+        EB2::SphereIF sphere(0.5, {AMREX_D_DECL(0.0,0.0,0.0)}, false);
         auto gshop = EB2::makeShop(sphere);
         EB2::Build(gshop, geom, 0, 0);
 
